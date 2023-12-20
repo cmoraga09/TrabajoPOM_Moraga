@@ -181,4 +181,8 @@ public class ClaseBase {
     public String obtenerAtributoAriaLabel(WebElement elemento){
         return elemento.getAttribute("aria-label");
     }
+
+    public void submitForm(WebElement elemento){
+        elemento.submit();
+    }
 }

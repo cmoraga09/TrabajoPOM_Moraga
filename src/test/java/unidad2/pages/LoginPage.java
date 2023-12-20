@@ -1,6 +1,7 @@
 package unidad2.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import unidad2.utils.ClaseBase;
 
@@ -18,7 +19,8 @@ public class LoginPage extends ClaseBase {
         agregarTexto(esperarPorPresenciaElementoWeb(locatorUserName),user);
         esperarXSegundos(1000);
         agregarTexto(esperarPorPresenciaElementoWeb(locatorPassword),pass);
+        esperarXSegundos(3000);
+        agregarCombinacionTeclado(locatorIniciarSesionBoton, Keys.ENTER);
         esperarXSegundos(1000);
-        click(esperarPorElementoAClickear(locatorIniciarSesionBoton));
     }
 }
