@@ -7,20 +7,26 @@ import unidad2.utils.ClaseBase;
 
 public class LoginPage extends ClaseBase {
     //Centralizar By
-    By locatorUserName = By.id("login-username");
-    By locatorPassword = By.id("login-password");
-    By locatorIniciarSesionBoton = By.xpath("//button[@data-testid='login-button']");
+
+    By locatorUserEmail = By.xpath("//input[@id='input-email']");
+    By locatorPassword = By.xpath("//input[@id='input-password']");
+    By locatorLoginBoton = By.xpath("//input[@value='Login']");
+    By locatorMensajeActual = By.xpath("//h2[normalize-space()='My Account']");
 
     public LoginPage(WebDriver driver) {
         super(driver);
     }
 
-    public void iniciarSesion(String user,String pass){
-        agregarTexto(esperarPorPresenciaElementoWeb(locatorUserName),user);
+    public void iniciarSesion(String userEmail,String pass){
+        agregarTexto(esperarPorPresenciaElementoWeb(locatorUserEmail),userEmail);
         esperarXSegundos(1000);
         agregarTexto(esperarPorPresenciaElementoWeb(locatorPassword),pass);
         esperarXSegundos(3000);
-        agregarCombinacionTeclado(locatorIniciarSesionBoton, Keys.ENTER);
+        agregarCombinacionTeclado(locatorLoginBoton, Keys.ENTER);
         esperarXSegundos(1000);
+    }
+
+    public String obtenerMensaje() {
+        return  obtenerTexto(esperarPorPresenciaElementoWeb(locatorMensajeActual));
     }
 }

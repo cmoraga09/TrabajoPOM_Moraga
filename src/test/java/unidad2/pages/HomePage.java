@@ -7,9 +7,10 @@ import unidad2.utils.ClaseBase;
 public class HomePage extends ClaseBase {
 
     //Centralizar los BY
-    private By localizadorRegistrarte = By.xpath("//button[contains(text(),'Reg')]");
-    private By localizadorIniciarSesion = By.xpath("//button[@data-testid='login-button']");
-    private By locatorUsername = By.xpath("//button[@data-testid='user-widget-link']");
+    private By locatorMyAccount =  By.xpath(" //span[@class='caret']");
+    private By locatorRegister = By.xpath("//a[normalize-space()='Register']");
+    private By locatorLogin = By.xpath("//a[normalize-space()='Login']");
+    private By locatorProductoMac = By.xpath("//div[@class='image']//img[@title='MacBook']");
 
 
     //ACCIONES
@@ -17,15 +18,23 @@ public class HomePage extends ClaseBase {
         super(driver);
     }
 
-    public void IrARegistrarse(){
-        click(esperarPorElementoAClickear(localizadorRegistrarte));
+    public void IrAMyAccount(){
+        click(esperarPorElementoAClickear(locatorMyAccount));
+        esperarXSegundos(2000);
     }
 
-    public void IrAIniciarSesion(){
-        click(esperarPorElementoAClickear(localizadorIniciarSesion));
+    public void IrARegister(){
+        click(esperarPorElementoAClickear(locatorRegister));
+        esperarXSegundos(2000);
     }
 
-    public String obtenerNombreUsuario() {
-        return obtenerAtributoAriaLabel(esperarPorPresenciaElementoWeb(locatorUsername));
+    public void IrALogin(){
+        click(esperarPorElementoAClickear(locatorLogin));
+        esperarXSegundos(2000);
     }
+    public void IrAProductoMac(){
+        click(esperarPorElementoAClickear(locatorProductoMac));
+        esperarXSegundos(2000);
+    }
+
 }

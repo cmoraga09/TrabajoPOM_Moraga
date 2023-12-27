@@ -4,31 +4,24 @@ import unidad2.utils.ClaseBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import java.util.List;
 
 public class RegisterPage extends ClaseBase {
 
     //Centralizar Localizadores
-    By locatorTxtUsername = By.id("username");
 
-    By locatorBtnCerrarPopUp = By.xpath("//button[@aria-label='Cerrar']");
+    By locatorFirstName = By.xpath("//input[@id='input-firstname']");
+    By locatorLastName = By.xpath("//input[@id='input-lastname']");
+    By locatorEmail = By.xpath("//input[@id='input-email']");
+    By locatorTelephone = By.xpath("//input[@id='input-telephone']");
+    By locatorPass = By.xpath("//input[@id='input-password']");
+    By locatorPassConfirm = By.xpath("//input[@id='input-confirm']");
+    By locatorAgree = By.xpath("//input[@name='agree']");
+    By locatorBtnContinue = By.xpath("//input[@value='Continue']");
 
-    By locatorBtnSiguiente = By.xpath("//button[@data-testid='submit']");
+    By locatorMensaje = By.xpath("//p[contains(text(),'Congratulations! Your new account has been success')]");
 
-    By locatorTxtPass = By.id("new-password");
-
-    By locatorTxtNickname = By.id("displayName");
-
-    By locatorTxtDia = By.xpath("//input[@id='day']");
-
-    By locatorDDLMes = By.xpath("//select[@id='month']");
-
-    By locatorTxtAnnio = By.xpath("//input[@id='year']");
-
-    By locatorOptionGender = By.xpath("//label[contains(@for,'gender')]");
-
-    By locatorCheck = By.xpath("//label[contains(@for,'checkbox')]");
+    By locatorMensajeAlerta = By.xpath("//div[@class='alert alert-danger alert-dismissible']");
 
     //Funciones
 
@@ -36,47 +29,35 @@ public class RegisterPage extends ClaseBase {
         super(driver);
     }
 
-    public void ingresarDia(String dia){
-        agregarTexto(esperarPorPresenciaElementoWeb(locatorTxtDia),dia);
-    }
+    public void crearCuenta (String firstName, String lastName, String email, String telephone, String password, String passwordConfirm) {
 
-    public void siguiente(){
+        agregarTexto(esperarPorPresenciaElementoWeb(locatorFirstName),firstName);
         esperarXSegundos(2000);
-        click(locatorBtnSiguiente);
+        agregarTexto(esperarPorPresenciaElementoWeb(locatorLastName),lastName);
+        esperarXSegundos(2000);
+        agregarTexto(esperarPorPresenciaElementoWeb(locatorEmail),email);
+        esperarXSegundos(2000);
+        agregarTexto(esperarPorPresenciaElementoWeb(locatorTelephone),telephone);
+        esperarXSegundos(2000);
+        agregarTexto(esperarPorPresenciaElementoWeb(locatorPass),password);
+        esperarXSegundos(2000);
+        agregarTexto(esperarPorPresenciaElementoWeb(locatorPassConfirm),passwordConfirm);
+        esperarXSegundos(2000);
+        esperarPorElementoAClickear(locatorAgree).click();
+        esperarXSegundos(1000);
+        esperarPorElementoAClickear(locatorBtnContinue).click();
+        esperarXSegundos(1000);
+        //siguiente();
+
     }
 
-    public void crearCuenta(String email,String pass,String nick,String dia,String mes,String annio,int genero,boolean checkPriv,boolean checkEnvioInfo) {
-        if(estaDesplegado(esperarPorPresenciaElementoWeb(locatorBtnCerrarPopUp))){
-            click(locatorBtnCerrarPopUp);
-        }
-        agregarTexto(esperarPorPresenciaElementoWeb(locatorTxtUsername),email);
-        siguiente();
-        if(estaDesplegado(esperarPorPresenciaElementoWeb(locatorBtnCerrarPopUp))){
-            click(locatorBtnCerrarPopUp);
-        }
-        agregarTexto(esperarPorPresenciaElementoWeb(locatorTxtPass),pass);
-        siguiente();
-        if(estaDesplegado(esperarPorPresenciaElementoWeb(locatorBtnCerrarPopUp))){
-            click(locatorBtnCerrarPopUp);
-        }
-        agregarTexto(esperarPorPresenciaElementoWeb(locatorTxtNickname),nick);
-        agregarTexto(esperarPorPresenciaElementoWeb(locatorTxtDia),dia);
-        selecionarComboBoxPorValue(esperarPorPresenciaElementoWeb(locatorDDLMes), mes);
-        agregarTexto(esperarPorPresenciaElementoWeb(locatorTxtAnnio),annio);
-        List<WebElement> generos = buscarElementosWeb(locatorOptionGender);
-        click(generos.get(genero));
-        click(esperarPorElementoAClickear(locatorBtnSiguiente));
-        List<WebElement> checks = buscarElementosWeb(locatorCheck);
+    public String obtenerMensaje() {
 
-        if(checkPriv){
-            click(checks.get(0));
-        }
-
-        if(checkEnvioInfo){
-            click(checks.get(1));
-        }
-        click(esperarPorElementoAClickear(locatorBtnSiguiente)); //Registrate
+        return  obtenerTexto(esperarPorPresenciaElementoWeb(locatorMensaje));
     }
 
+    public String obtenerMensajeAlerta() {
+        return  obtenerTexto(esperarPorPresenciaElementoWeb(locatorMensajeAlerta));
+    }
 
 }
